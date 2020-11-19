@@ -29,10 +29,6 @@ public class StubFooDao implements FooDao {
 	private InjectValue injectValue;
 
 	public void setInjectValue(InjectValue injectValue) {
-		StackTraceElement stack[] = Thread.currentThread().getStackTrace();
-		for (int i = 0; i < stack.length; i++) {
-			System.out.println("==========" + stack[i].getClassName() + " 。" + stack[i].getMethodName() + "==========");
-		}
 		this.injectValue = injectValue;
 	}
 

@@ -563,6 +563,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		if (mbd.isSingleton()) {
 			instanceWrapper = this.factoryBeanInstanceCache.remove(beanName);
 		}
+
 		if (instanceWrapper == null) {
 			//****** 创建,定义使用何种方式创建对象,使用什么样的构造方法
 			instanceWrapper = createBeanInstance(beanName, mbd, args);
@@ -614,7 +615,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			// 对 bean 进行填充,将各个属性值注入,可能存在依赖于其他 bean 的属性则会递归初始依赖 bean
 			populateBean(beanName, mbd, instanceWrapper);
 
-			// 创建完BEAN后，进行初始化
+			// 创建完BEAN后，进行初始化,应用后置处理器
 			exposedObject = initializeBean(beanName, exposedObject, mbd);
 		}
 		catch (Throwable ex) {
@@ -1810,6 +1811,11 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 					beanName, "Invocation of init method failed", ex);
 		}
 		if (mbd == null || !mbd.isSynthetic()) {
+
+			if (beanName.equals("stubFooDao")){
+				System.out.println("begin");
+			}
+			// 初始化完成后,应用Bean的后置处理器
 			wrappedBean = applyBeanPostProcessorsAfterInitialization(wrappedBean, beanName);
 		}
 

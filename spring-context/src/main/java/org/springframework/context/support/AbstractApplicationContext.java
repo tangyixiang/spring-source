@@ -534,7 +534,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 			ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
 
 			// Prepare the bean factory for use in this context.
-			// 预热BeanFactory
+			// 为当前上下文,初始化BeanFactory
 			prepareBeanFactory(beanFactory);
 
 			try {
@@ -545,6 +545,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				invokeBeanFactoryPostProcessors(beanFactory);
 
 				// Register bean processors that intercept bean creation.
+				// 注册Bean的后置处理器,在Bean真正创建前,进行拦截
 				registerBeanPostProcessors(beanFactory);
 
 				// Initialize message source for this context.
@@ -887,6 +888,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		beanFactory.freezeConfiguration();
 
 		// Instantiate all remaining (non-lazy-init) singletons.
+		// 实例化剩下的非lazy的单例
 		beanFactory.preInstantiateSingletons();
 	}
 

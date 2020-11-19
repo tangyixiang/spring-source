@@ -1,5 +1,6 @@
 package org.springframework.context.annotation;
 
+import example.scannable.FooDao;
 import example.scannable.StubFooDao;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -12,8 +13,9 @@ public class SkyApplicationContextTest {
 	public void load() {
 		ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("simpleConfigTests.xml", getClass());
 		assertTrue(applicationContext.containsBean("fooServiceImpl"));
-		StubFooDao stubFooDao = (StubFooDao)applicationContext.getBean("stubFooDao");
+		FooDao stubFooDao = (FooDao)applicationContext.getBean("stubFooDao");
 		System.out.println(stubFooDao);
+		System.out.println(stubFooDao.findFoo(1));
 		applicationContext.close();
 	}
 
